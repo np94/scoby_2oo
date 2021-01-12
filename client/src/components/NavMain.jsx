@@ -42,6 +42,7 @@ const NavMain = (props) => {
             </li>
             <li>
               <NavLink to="/profile">
+                 My Profile
                 {authContext.user && authContext.user.firstName}
               </NavLink>
             </li>

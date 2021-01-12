@@ -7,6 +7,7 @@ const salt = 10;
 
 router.post("/signin", (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email);
   User.findOne({ email })
     .then((userDocument) => {
       // If userDocument is null, it means that no user with the given email was found in the DB.
@@ -14,6 +15,7 @@ router.post("/signin", (req, res, next) => {
       // just be careful to set the username as unique when defining the schema.
       if (!userDocument) {
         // Status 400 for bad request.
+        console.log(email, " not found in db");
         return res.status(400).json({ message: "Invalid credentials" }); // Send a general message so hackers don't know if the email or the password were incorrect.
       }
       const isValidPassword = bcrypt.compareSync(

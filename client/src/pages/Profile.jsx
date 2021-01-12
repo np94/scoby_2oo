@@ -3,29 +3,41 @@ import { Link } from "react-router-dom";
 import { withUser } from "../components/Auth/withUser";
 import "../styles/Profile.css";
 import "../styles/CardItem.css";
+import api from "../api/apiHandler";
+
 class Profile extends Component {
+  state =  {
+    profile :[]
+  }
+  
+
+  handleChange = (event) => {
+    const key = event.target.name;
+    const value = event.target.value;
+
+    this.setState({
+      [key]: value,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    // console.log(this.state);
+    api
+      .updateUser()
+      .then((apiResponse) => {
+        this.props.history.push("/profile");
+        // console.log("Created !");
+        // console.log(apiResponse);
+      });
+  };
+
   render() {
     const { authContext } = this.props;
     const { user } = authContext;
 
     return (
       <div style={{ padding: "100px", fontSize: "1.25rem" }}>
-        <h2 style={{ fontSize: "1.5rem", marginBottom: "10px" }}>
-          This is profile, it's protected !
-        </h2>
-        <p>
-          Checkout the<b>ProtectedRoute</b> component in
-          <code>./components/ProtectRoute.jsx</code>
-        </p>
-        <a
-          style={{ color: "dodgerblue", fontWeight: "bold" }}
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://reacttraining.com/react-router/web/example/auth-workflow"
-        >
-          React router dom Demo of a protected route
-        </a>
-
         <section className="Profile">
           <div className="user-image round-image">
             <img src={user.profileImg} alt={user.firstName} />
@@ -42,7 +54,7 @@ class Profile extends Component {
           <div className="user-contact">
             <h4>Add a phone number</h4>
 
-            <form className="form">
+            <form className="form" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label className="label" htmlFor="phoneNumber">
                   Phone number
@@ -53,6 +65,8 @@ class Profile extends Component {
                   type="text"
                   name="phoneNumber"
                   placeholder="Add phone number"
+                  value={this.phoneNumber}
+                  onChange={this.handleChange}
                 />
               </div>
               <button className="form__button">Add phone number</button>

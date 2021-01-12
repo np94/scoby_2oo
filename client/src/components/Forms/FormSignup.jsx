@@ -60,6 +60,8 @@ class FormSignup extends Component {
               id="firstName"
               type="text"
               name="firstName"
+              onChange={this.handleChange}
+              value={this.state.firstName}
             />
           </div>
 
@@ -72,6 +74,8 @@ class FormSignup extends Component {
               id="lastName"
               type="text"
               name="lastName"
+              onChange={this.handleChange}
+              value={this.state.lastName}
             />
           </div>
 
@@ -79,7 +83,7 @@ class FormSignup extends Component {
             <label className="label" htmlFor="email">
               Email
             </label>
-            <input className="input" id="email" type="email" name="email" />
+            <input className="input" id="email" type="email" name="email" onChange={this.handleChange} value={this.state.email}/>
           </div>
 
           <div className="form-group">
@@ -91,6 +95,8 @@ class FormSignup extends Component {
               id="password"
               type="password"
               name="password"
+              onChange={this.handleChange}
+              value={this.state.password}
             />
           </div>
 
